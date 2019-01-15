@@ -13,6 +13,7 @@ const passport = require('passport');
 // console.log(jimmy); // Stewart - the variable name is jimmy, not james
 // console.log(bobby); // De Niro - the variable name is bobby, not robert
 const { router: usersRouter } = require('./users');
+const { router: inventoryRouter } = require('./inventory');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
 mongoose.Promise = global.Promise;
@@ -40,16 +41,7 @@ passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
-
-const jwtAuth = passport.authenticate('jwt', { session: false });
-
-// A protected endpoint which needs a valid JWT to access it
-app.get('/api/protected', jwtAuth, (req, res) => {
-  console.log("user id:", req.user._id);
-  return res.json({
-    data: 'rosebud'
-  });
-});
+app.use('/api/inventory/', inventoryRouter);
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });

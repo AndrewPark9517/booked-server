@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 
 const inventorySchema = mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
-  bookList: [{
+  books: [{
       title: String,
       author: String,
       stock: Number,
