@@ -6,10 +6,23 @@ mongoose.Promise = global.Promise;
 const inventorySchema = mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'users' },
   books: [{
-      title: String,
-      author: String,
-      stock: Number,
-      price: Number
+      title: {
+        type: String,
+        required: true,
+        unique: true
+      },
+      author: {
+        type: String,
+        required: true,
+      },
+      stock: {
+        type: Number,
+        required: true
+      },
+      price: {
+        type: Number,
+        required: true
+      }
   }]
 });
 

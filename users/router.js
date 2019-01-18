@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const {User} = require('./models');
+const {Inventory} = require('../inventory/models');
 
 const router = express.Router();
 
@@ -122,6 +123,11 @@ router.post('/', jsonParser, (req, res) => {
       });
     })
     .then(user => {
+      Inventory.create({
+        "user": user._id,
+        "books": []
+      });
+      
       return res.status(201).json(user.serialize());
     })
     .catch(err => {

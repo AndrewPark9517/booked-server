@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const bodyParser = require('body-parser');
-const { Inventory } = require('./model');
+const { Inventory } = require('./models');
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 router.use(bodyParser.json());
@@ -22,7 +22,7 @@ router.use(bodyParser.json());
   router.post('/addBook', jwtAuth, (req, res) => {
     Inventory.findOne({'user': req.user._id})
     .then(function(inventory) {
-
+        //console.log('Received Body from Front End: ', req.body);
         const isInInventory = inventory.books.find(function(book) {
             return book.title === req.body.title;
         })
